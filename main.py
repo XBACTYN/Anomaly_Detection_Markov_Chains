@@ -20,14 +20,15 @@ def get_states(data):
 
 
 def state_probs_matrix(data, states):
-    matrix = np.full((len(states), len(states)), 0.00001)
+    matrix = np.full((len(states), len(states)), 0.0)
 
     for i in range(len(data) - 1):
         matrix[states.index(data[i]), states.index(
             data[i + 1])] += 1  # Считаем количество переходов между состояниями и заносим в таблицу
 
     for i in range(len(states)):  # Получаем вероятности.
-        matrix[i] /= matrix[i].sum()
+        if matrix[i].sum() != 0:
+            matrix[i] /= matrix[i].sum()
 
     # print(matrix)
     return matrix
